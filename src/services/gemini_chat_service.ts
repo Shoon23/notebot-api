@@ -25,7 +25,7 @@ class ChatService {
 
   private initializeChatModel() {
     this.chatModel = this.genAI?.getGenerativeModel({
-      model: "gemini-2.0-flash",
+      model: "gemini-2.5-flash",
       generationConfig: { responseMimeType: "text/plain" },
       systemInstruction: this.system_instruction,
     });
@@ -35,7 +35,7 @@ class ChatService {
     if (this.chatModel) {
       // Re-create model with updated instruction
       this.chatModel = this.genAI?.getGenerativeModel({
-        model: "gemini-2.0-flash",
+        model: "gemini-2.5-flash",
         generationConfig: { responseMimeType: "text/plain" },
         systemInstruction: instruction,
       });
@@ -107,23 +107,21 @@ class ChatService {
     }
   };
 
- summarizedChat =async(transcript:string)=>{
-  if (!this.chatModel) {
-    throw new Error("Chat model not initialized");
-  }
-  try {
-    this
-    .updateSystemInstruction(`You are NoteGPT, an assistant that transforms a raw chat transcript into a summarized note.\n\nTASK:\n• Produce a single raw text string containing the formatted note.\n• Use literal “\\n” characters wherever a new line should occur.\n• You decide which headings and sections make the most sense (e.g. “Summary,” “Highlights,” “Next Steps,” etc.), but use them consistently.\n• Separate sections with “\\n”.\n• For bullet lists, prefix each item with “- ” and end each item with “\\n”.\n• No JSON, no code fences—just one long string with embedded “\\n” tokens.`)
-    const result = await this.chatModel.generateContent(transcript);
+  summarizedChat = async (transcript: string) => {
+    if (!this.chatModel) {
+      throw new Error("Chat model not initialized");
+    }
+    try {
+      this.updateSystemInstruction(
+        `You are NoteGPT, an assistant that transforms a raw chat transcript into a summarized note.\n\nTASK:\n• Produce a single raw text string containing the formatted note.\n• Use literal “\\n” characters wherever a new line should occur.\n• You decide which headings and sections make the most sense (e.g. “Summary,” “Highlights,” “Next Steps,” etc.), but use them consistently.\n• Separate sections with “\\n”.\n• For bullet lists, prefix each item with “- ” and end each item with “\\n”.\n• No JSON, no code fences—just one long string with embedded “\\n” tokens.`
+      );
+      const result = await this.chatModel.generateContent(transcript);
 
-    return result.response.text();
-
-  } catch (error) {
-    throw new Error("Error Summarizing");
-
-  }
-  
- }
+      return result.response.text();
+    } catch (error) {
+      throw new Error("Error Summarizing");
+    }
+  };
 }
 
 export default ChatService;

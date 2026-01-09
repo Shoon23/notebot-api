@@ -81,7 +81,7 @@ class GenerativeAIService {
   // Initialize model once with a default instruction
   private initializeModel() {
     this.model = this.genAI?.getGenerativeModel({
-      model: "gemini-2.0-flash",
+      model: "gemini-2.5-flash",
       generationConfig: {
         responseMimeType: "application/json",
         temperature: 1,
@@ -97,7 +97,7 @@ class GenerativeAIService {
     if (this.model) {
       // Re-create model with updated instruction
       this.model = this.genAI?.getGenerativeModel({
-        model: "gemini-1.5-flash",
+        model: "gemini-2.5-flash",
         generationConfig: {
           responseMimeType: "application/json",
           temperature: 1,
@@ -173,7 +173,7 @@ class GenerativeAIService {
       `;
       // Dynamically update system instruction
       const model = this.genAI?.getGenerativeModel({
-        model: "gemini-2.5-pro-exp-03-25",
+        model: "gemini-2.5-flash",
         generationConfig: {
           responseMimeType: "application/json",
           temperature: 1,
@@ -251,7 +251,7 @@ class GenerativeAIService {
       `;
       // Dynamically update system instruction
       const model = this.genAI?.getGenerativeModel({
-        model: "gemini-2.5-pro-exp-03-25",
+        model: "gemini-2.5-flash",
         generationConfig: {
           responseMimeType: "application/json",
           temperature: 1,
@@ -291,7 +291,7 @@ class GenerativeAIService {
 
     // Dynamically update system instruction
     const model = this.genAI?.getGenerativeModel({
-      model: "gemini-2.5-pro-exp-03-25",
+      model: "gemini-2.5-flash",
       generationConfig: {
         responseMimeType: "application/json",
         temperature: 1,
